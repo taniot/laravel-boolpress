@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -17,6 +18,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -27,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,6 +40,14 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+
+        $data = $request->validated();
+        $post = new Post();
+        $post->slug =  Str::slug($data['title']);
+        $post->fill($data);
+        $post->save();
+
+        return redirect()->route('admin.posts.index')->with('message', 'Post creato con successo');
         //
     }
 
@@ -47,9 +57,17 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+    // public function show(string $slug)
+    // {
+    //    //$post = Post::find($id);
+    //    $posts = Post::where('slug', $slug)->get();
+
+    //  return view('admin.posts.show', compact('posts'));
+    // }
+
     public function show(Post $post)
     {
-        //
+     return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -60,7 +78,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -72,7 +90,12 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->validated();
+        $post->slug =  Str::slug($data['title']);
+        $post->update($data);
+        // $post->save();
+        return redirect()->route('admin.posts.index')->with('message', "Post $post->id aggiornato con successo");
+
     }
 
     /**
@@ -83,6 +106,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $old_id = $post->id;
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('message', "Post $old_id cancellato con successo");
     }
 }
