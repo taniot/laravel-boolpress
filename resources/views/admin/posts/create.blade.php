@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Crea post</h2>
+    <div class="container">
+        <h2>Crea post</h2>
 
-    @include('partials.errors')
+        @include('partials.errors')
 
-    <form action="{{ route('admin.posts.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
-        </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">Content</label>
-          <textarea class="form-control" id="content" name="content">{{ old('content') }}</textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="content">{{ old('content') }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input class="form-control" type="file" id="image" name="image">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-</div>
+    </div>
 @endsection
