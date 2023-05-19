@@ -8,7 +8,7 @@ CMS per la gestione di articoli
 - [x] Creazione snippet JS per anteprima immagine upload - quando cambia immagine, cambia anteprima
 - [x] Integrazione in edit dell'upload immagine e snippet anteprima
 - [x] Gestione dei casi "edit" per la gestione dell'immagine
-- [] Gestione dei casi per la cancellazione di un post
+- [x] Gestione dei casi per la cancellazione di un post
 
 ### Casi "Edit"
 
