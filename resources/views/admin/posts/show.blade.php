@@ -11,6 +11,8 @@
     </div>
 
     <p>{{ $post->content }}</p>
+    <hr>
+    <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-warning">Edit</a>
 
 </div>
 @endsection

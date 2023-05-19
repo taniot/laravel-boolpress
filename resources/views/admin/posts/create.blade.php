@@ -6,7 +6,7 @@
 
         @include('partials.errors')
 
-        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="form-input-image">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -17,6 +17,12 @@
                 <textarea class="form-control" id="content" name="content">{{ old('content') }}</textarea>
             </div>
             <div class="mb-3">
+                <!-- anteprima immagine upload -->
+                <div class="preview">
+                    <img id="file-image-preview">
+                </div>
+                <!-- /anteprima immagine upload -->
+
                 <label for="image" class="form-label">Image</label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>

@@ -32,7 +32,9 @@ class UpdatePostRequest extends FormRequest
                 'string',
                 'max:150'
             ],
-            'content' => 'nullable|string'
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+            'set_image' => 'boolean'
         ];
     }
 }

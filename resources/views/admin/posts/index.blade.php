@@ -23,7 +23,7 @@
             @foreach ($posts as $post)
             <tr>
                 <th scope="row">{{ $post->id }}</th>
-                <td>{{ $post->title }}</td>
+                <td>@if($post->image) <a href="#" class="btn btn-sm btn-secondary">image</a> @endif {{ $post->title }}</td>
                 <td>{{ $post->slug }}</td>
                 <td>
                     <ul class="list-unstyled d-flex m-0 gap-1 justify-content-end">

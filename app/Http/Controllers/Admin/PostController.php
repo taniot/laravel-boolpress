@@ -42,16 +42,15 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
 
-
         $data = $request->validated();
 
         $post = new Post();
         $post->fill($data);
 
         $post->slug =  Str::slug($data['title']);
-       if(isset($data['image'])){
-             $post->image = Storage::put('uploads', $data['image']);
-         }
+        if (isset($data['image'])) {
+            $post->image = Storage::put('uploads', $data['image']);
+        }
 
         $post->save();
 
@@ -75,7 +74,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-     return view('admin.posts.show', compact('post'));
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -98,12 +97,37 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $data = $request->validated();
-        $post->slug =  Str::slug($data['title']);
-        $post->update($data);
-        // $post->save();
-        return redirect()->route('admin.posts.index')->with('message', "Post $post->id aggiornato con successo");
 
+
+
+
+        $data = $request->validated();
+
+        $post->slug =  Str::slug($data['title']);
+
+        if(empty($data['set_image'])){
+
+
+            if($post->image){
+                Storage::delete($post->image);
+                $post->image = null;
+            }
+
+
+
+        } else {
+            if (isset($data['image'])) {
+
+                if($post->image){
+                    Storage::delete($post->image);
+                }
+
+                $post->image = Storage::put('uploads', $data['image']);
+            }
+        }
+
+        $post->update($data);
+        return redirect()->route('admin.posts.index')->with('message', "Post $post->id aggiornato con successo");
     }
 
     /**
@@ -115,6 +139,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $old_id = $post->id;
+
+        if($post->image){
+            Storage::delete($post->image);
+        }
+
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', "Post $old_id cancellato con successo");
