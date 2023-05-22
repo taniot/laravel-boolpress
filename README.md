@@ -9,7 +9,7 @@ CMS per la gestione di articoli
 - [x] Integrazione in edit dell'upload immagine e snippet anteprima
 - [x] Gestione dei casi "edit" per la gestione dell'immagine
 - [x] Gestione dei casi per la cancellazione di un post
-- [] Gestione categorie post - casi categorie post
+- [x] Gestione categorie post - casi categorie post
 
 ### Casi "Edit"
 
