@@ -5,10 +5,12 @@
     <h2 class="fs-4 text-secondary my-4">
        {{ $post->title }}
     </h2>
-
-    <div>
+    @if ($post->image)
+        <div>
         <img src="{{ asset('storage/' . $post->image) }}" alt=" {{ $post->title }}">
     </div>
+    @endif
+
 
     <p>{{ $post->content }}</p>
     <hr>

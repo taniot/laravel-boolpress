@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Modifica post: {{ $post->title }}</h2>
+    <h2 class="fs-4 text-secondary my-4">Modifica post: {{ $post->title }}</h2>
     @include('partials.errors')
     <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="form-input-image">
         @csrf
@@ -29,6 +29,7 @@
             <label for="image" class="form-label">Image</label>
             <input class="form-control" type="file" id="image" name="image">
         </div>
+        <hr>
         <button type="submit" class="btn btn-primary">Edit</button>
       </form>
 

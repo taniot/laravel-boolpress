@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Crea post</h2>
+        <h2 class="fs-4 text-secondary my-4">Crea post</h2>
 
         @include('partials.errors')
 
