@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -30,7 +31,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+
+        $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -45,12 +49,13 @@ class PostController extends Controller
         $data = $request->validated();
 
         $post = new Post();
-        $post->fill($data);
 
-        $post->slug =  Str::slug($data['title']);
+        $post->fill($data); //title, content, image -> data['image'] = //MAMP/tmp/php
         if (isset($data['image'])) {
-            $post->image = Storage::put('uploads', $data['image']);
+            $post->image = Storage::put('uploads', $data['image']); // storage/public/nomefile.jpg
         }
+        $post->slug =  Str::slug($data['title']);
+
 
         $post->save();
 
@@ -74,6 +79,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+
+        //query su tabella categorie - se ho post->category_i
+
+
         return view('admin.posts.show', compact('post'));
     }
 

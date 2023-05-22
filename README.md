@@ -8,7 +8,8 @@ CMS per la gestione di articoli
 - [x] Creazione snippet JS per anteprima immagine upload - quando cambia immagine, cambia anteprima
 - [x] Integrazione in edit dell'upload immagine e snippet anteprima
 - [x] Gestione dei casi "edit" per la gestione dell'immagine
-- [] Gestione dei casi per la cancellazione di un post
+- [x] Gestione dei casi per la cancellazione di un post
+- [] Gestione categorie post - casi categorie post
 
 ### Casi "Edit"
 
@@ -20,3 +21,13 @@ CMS per la gestione di articoli
 
 ### Casi Delete Post
 - Quando cancelliamo un post, cancelliamo l'immagine associata
+
+
+### Casi categorie Post
+- Creazione tabella categorie (migration)
+-- Popolare tabella categorie (seeder)
+- Creazione chiave esterna post - categorie
+-- modificare seeder creazione post con categorie
+- Istruire laravel su come utilizzare le nuove istanze / relazioni (Model)
+
+
