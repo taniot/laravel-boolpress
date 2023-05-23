@@ -29,6 +29,38 @@
             <label for="image" class="form-label">Image</label>
             <input class="form-control" type="file" id="image" name="image">
         </div>
+
+        @if ($errors->any())
+        <div class="mb-3">
+            <div class="mb-3">Tags</div>
+            @foreach ($tags as $tag)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="tags" value="{{ $tag->id }}" name="tags[]" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="tags">{{ $tag->name }}</label>
+                </div>
+            @endforeach
+
+        </div>
+        @else
+        <div class="mb-3">
+            <div class="mb-3">Tags</div>
+
+            @foreach ($tags as $tag)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="tags" value="{{ $tag->id }}" name="tags[]" {{ $post->tags->contains($tag->id) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="tags">{{ $tag->name }}</label>
+                </div>
+            @endforeach
+
+        </div>
+        @endif
+
+
+
+
+
+
+
         <hr>
         <button type="submit" class="btn btn-primary">Edit</button>
       </form>

@@ -31,9 +31,20 @@
                 <select class="form-select" name="category_id" id="category_id">
                     <option value="">Select category</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="mb-3">
+                <div class="mb-3">Tags</div>
+                @foreach ($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="tags" value="{{ $tag->id }}" name="tags[]" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="tags">{{ $tag->name }}</label>
+                    </div>
+                @endforeach
+
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

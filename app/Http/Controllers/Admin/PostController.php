@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -33,8 +34,9 @@ class PostController extends Controller
     {
 
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -56,8 +58,16 @@ class PostController extends Controller
         }
         $post->slug =  Str::slug($data['title']);
 
+        //$post->id = NULL
+
 
         $post->save();
+
+        //$post->id = 50
+
+        if(isset($data['tags'])){ //null?
+            $post->tags()->sync($data['tags']);
+        }
 
         return redirect()->route('admin.posts.index')->with('message', 'Post creato con successo');
         //
@@ -94,7 +104,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -107,22 +121,16 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
 
-
-
-
         $data = $request->validated();
+
 
         $post->slug =  Str::slug($data['title']);
 
         if(empty($data['set_image'])){
-
-
             if($post->image){
                 Storage::delete($post->image);
                 $post->image = null;
             }
-
-
 
         } else {
             if (isset($data['image'])) {
@@ -135,7 +143,22 @@ class PostController extends Controller
             }
         }
 
+
+        $tags = isset($data['tags']) ? $data['tags'] : [];
+        $post->tags()->sync($tags);
+
+
+        // if(isset($data['tags'])){ //null?
+        //     $post->tags()->sync($data['tags']);
+        // } else {
+        //     $post->tags()->detach();
+        // }
+
+
         $post->update($data);
+
+
+
         return redirect()->route('admin.posts.index')->with('message', "Post $post->id aggiornato con successo");
     }
 

@@ -34,7 +34,8 @@ class UpdatePostRequest extends FormRequest
             ],
             'content' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
-            'set_image' => 'boolean'
+            'set_image' => 'boolean',
+            'tags' => 'nullable|exists:tags,id'
         ];
     }
 }
