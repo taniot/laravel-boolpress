@@ -20,9 +20,9 @@ class PostSeeder extends Seeder
     public function run(Faker $faker)
     {
 
-        Schema::disableForeignKeyConstraints();
-        Post::truncate();
-        Schema::enableForeignKeyConstraints();
+        // Schema::disableForeignKeyConstraints();
+        // Post::truncate();
+        // Schema::enableForeignKeyConstraints();
 
         for($i = 0; $i < 10; $i++){
 
