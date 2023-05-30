@@ -26,13 +26,10 @@ class PostController extends Controller
     //public function show(Post $post) -> non ha category e tags
     public function show(string $slug)
     {
-
         //$post = Post::where('slug', $slug)->with('category', 'tags')->first();
         // $post = Post::where('id', $id)->with('category', 'tags')->first();
-
-
         try {
-            $post = Post::where('slug', $slug)->with('category', 'tags')->first();
+            $post = Post::where('slug', $slug)->with('category', 'tags', 'comments')->first();
 
             if ($post) {
                 return response()->json([

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,8 @@ Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{slug}', [CategoryController::class, 'show']);
 
 
+//comments
+//POST            admin/posts ............................ admin.posts.store › Admin\PostController@store
 
+Route::post('comments', [CommentController::class, 'store']);
 

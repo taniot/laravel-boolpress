@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Mail\NewPost;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -68,6 +70,10 @@ class PostController extends Controller
         if(isset($data['tags'])){ //null?
             $post->tags()->sync($data['tags']);
         }
+
+
+        Mail::to(['info@pippo.it', 'luca@domanda.com'])->send(new NewPost($post));
+
 
         return redirect()->route('admin.posts.index')->with('message', 'Post creato con successo');
         //

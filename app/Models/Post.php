@@ -22,6 +22,10 @@ class Post extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
 
     protected function title(): Attribute
     {
