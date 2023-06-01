@@ -8,7 +8,7 @@
         <h3>Category: {{ $post->category?->name ?: 'Nessuna categoria' }}</h3>
         @if ($post->image)
             <div>
-                <img src="{{ asset('storage/' . $post->image) }}" alt=" {{ $post->title }}">
+                <img src="{{ $post->image }}" alt=" {{ $post->title }}">
             </div>
         @endif
 
